@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<Map> getWeatherData(String city) async{
-    String url = "http://api.openweathermap.org/data/2.5/weather?q=$city&appid=959ced4532cb46160e081cf1d9bc50a0";
+    String url = "http://api.openweathermap.org/data/2.5/weather?q=$city&appid=959ced4532cb46160e081cf1d9bc50a0&units=metric";
 
     http.Response response = await http.get(url);
     return json.decode(response.body);
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
 
               new ListTile(
                 title: new Text(
-                  "°C",
+                  "${data['main']['humidity']}°C",
                   style: temperatureStyle(),
                 ),
                 subtitle: new Column(
