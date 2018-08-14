@@ -2,8 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'package:intl/intl.dart';
 import 'package:weather_icons_flutter/weather_icons_flutter.dart';
 import 'package:flutter/material.dart';
+
+
+import '../text_styles.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,8 +15,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  
+
   @override
   Widget build(BuildContext context) {
+    
+    var formater = DateFormat.yMMMMd("en_US");
+    var todayDate = formater.format(DateTime.now());
+    
     return Scaffold(
       appBar: new AppBar(
         title: new Text("Alpine weather"),
@@ -53,13 +64,13 @@ class _HomeState extends State<Home> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              new Text("TashiGangsdfR",
+              new Text("Paro",
               style: dzongkhagNameStyle(),
               ),
               new Padding(
                 padding: EdgeInsets.only(right: 50.0),
               ),
-              new Text("9 August 2018",
+              new Text("$todayDate",
                 style: dateStyle(),
               ),
             ],
@@ -68,14 +79,14 @@ class _HomeState extends State<Home> {
 
         new Container(
           
-          height: 350.0,
+          height: 400.0,
           width: 300.0,
           decoration: new BoxDecoration(
             color: Colors.black26,
             borderRadius: new BorderRadius.all(Radius.circular(10.0))
           ),
           
-          margin: const EdgeInsets.fromLTRB(30.0, 130.0, 30.0, 30.0),
+          margin: const EdgeInsets.fromLTRB(30.0, 110.0, 30.0, 0.0),
           alignment: Alignment.center,
           child: updateTemp("Paro,Bhutan"),
         ),
@@ -92,36 +103,67 @@ class _HomeState extends State<Home> {
   }
 
   Widget updateTemp(String city){
+    
     return new FutureBuilder(
       future: getWeatherData(city),
       builder: (BuildContext context, AsyncSnapshot<Map> snapshot){
+        
         Map data = snapshot.data;
-        if (data != null && data.isNotEmpty){
+        
+        if (data != null && data.isNotEmpty){  
+          
+          //6 hour = 21600000 milliseconds
+          DateFormat format = DateFormat.jm();
+          var sunRiseTime = format.format(DateTime.fromMillisecondsSinceEpoch(data['sys']['sunrise'] * 1000 + 21600000));
+          var sunSetTime = format.format(DateTime.fromMillisecondsSinceEpoch(data['sys']['sunset'] * 1000 + 21600000));
+
           return new Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              new Icon(WeatherIcons.day_cloudy_high,
+              
+              new Icon(WeatherIcons.day_rain_mix,
                 size: 100.0,
                 color: Colors.white,
               ),
 
-              new ListTile(
-                title: new Text(
-                  "${data['main']['humidity']}°C",
-                  style: temperatureStyle(),
-                ),
-                subtitle: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Text("Humidity: ${data['main']['humidity']}",
-                      style: otherTextStyle(),
-                    ),
-                    new Text("another stuff: 200",
-                      style: otherTextStyle(),
-                    ),
-                  ],
-                ),
+              new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  new Text(
+                    "${data['main']['temp']}°C",
+                    style: temperatureStyle(),
+                  ),
+
+                  new Text(
+                    "${data['weather'][0]['description']}",
+                    style: descriptionStyle(),
+                  ),
+               ],
+              ),
+                  
+              new Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  new Text("Humidity: ${data['main']['humidity']}%",
+                    style: otherTextStyle(),
+                  ),
+
+                  new Padding(
+                    padding: EdgeInsets.only(bottom: 7.0),
+                  ),
+                    
+                  new Text("Sunrise: $sunRiseTime",
+                    style: otherTextStyle(),
+                  ),
+                  
+                  new Padding(
+                    padding: EdgeInsets.only(bottom: 7.0),
+                  ),
+              
+                  new Text("Sunset: $sunSetTime",
+                    style: otherTextStyle(),
+                  ),
+                ],
               ),
             ],
           );
@@ -136,54 +178,14 @@ class _HomeState extends State<Home> {
     );
   }
 
+
+  //for testing purposes..
   void showData() async{
     Map data = await getWeatherData("Thimphu,Bhutan");
     if(data.isNotEmpty){
-      print(data['main']['humidity']);
+      print(data['weather']);
     }else{
       print("No data");
     }
   }
-
-}
-
-// stuffs for later
-TextStyle dzongkhagNameStyle(){
-  return new TextStyle(
-    color: Colors.white,
-    fontSize: 19.0,
-    fontWeight: FontWeight.bold
-  );
-}
-
-TextStyle dateStyle(){
-  return new TextStyle(
-    color: Colors.white,
-    fontSize: 18.0,
-    fontWeight: FontWeight.w600
-  );
-}
-
-TextStyle temperatureStyle(){
-  return new TextStyle(
-    color: Colors.white,
-    fontSize: 50.0,
-    fontWeight: FontWeight.bold
-  );
-}
-
-TextStyle otherTextStyle(){
-  return new TextStyle(
-    color: Colors.white,
-    fontSize: 20.0,
-    fontWeight: FontWeight.bold
-  );
-}
-
-TextStyle noDataStyle(){
-  return new TextStyle(
-    color: Colors.red,
-    fontSize: 20.0,
-    fontWeight: FontWeight.normal
-  );
 }
