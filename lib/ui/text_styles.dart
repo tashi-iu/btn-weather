@@ -18,7 +18,7 @@ TextStyle dateStyle(){
 TextStyle temperatureStyle(){
   return new TextStyle(
     color: Colors.white,
-    fontSize: 80.0,
+    fontSize: 60.0,
   );
 }
 
