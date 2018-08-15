@@ -23,7 +23,8 @@ Widget updateTemp(String city) {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  child: iconGenerator(data['weather'][0]['icon'], 100.0, Colors.white),
+                  child: iconGenerator(
+                      data['weather'][0]['icon'], 100.0, Colors.white),
                 ),
                 new Text(
                   "${data['main']['temp']}°",
@@ -31,49 +32,44 @@ Widget updateTemp(String city) {
                 ),
               ],
             ),
-
-            Card(
-              margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-              elevation: 5.0,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(8.0, 12.0, 8.0, 14.0),
-                decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(4.0)),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Text(
-                          "${data['weather'][0]['description']}",
-                          style: descriptionStyle(),
-                        ),
-                        new Text(
-                          "Humidity: ${data['main']['humidity']}%",
-                          style: otherTextStyle(),
-                        ),
-                      ],
-                    ),
-                    new Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        new Text(
-                          "Sunrise: $sunRiseTime",
-                          style: otherTextStyle(),
-                        ),
-                        new Text(
-                          "Sunset: $sunSetTime",
-                          style: otherTextStyle(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            Container(
+              height: 100.0,
+              width: 300.0,
+              margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 100.0),
+              decoration: new BoxDecoration(
+                color: Colors.black26
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      new Text(
+                        "${data['weather'][0]['description']}",
+                        style: descriptionStyle(),
+                      ),
+                      new Text(
+                        "Humidity: ${data['main']['humidity']}%",
+                        style: otherTextStyle(),
+                      ),
+                    ],
+                  ),
+                  new Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      new Text(
+                        "Sunrise: $sunRiseTime",
+                        style: otherTextStyle(),
+                      ),
+                      new Text(
+                        "Sunset: $sunSetTime",
+                        style: otherTextStyle(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
