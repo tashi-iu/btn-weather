@@ -24,7 +24,7 @@ TextStyle temperatureStyle(){
 
 TextStyle descriptionStyle(){
   return new TextStyle(
-    color: Colors.black,
+    color: Colors.white,
     fontSize: 24.0,
   );
 }
@@ -32,7 +32,7 @@ TextStyle descriptionStyle(){
 
 TextStyle otherTextStyle(){
   return new TextStyle(
-    color: Colors.black,
+    color: Colors.white,
     fontSize: 18.0,
   );
 }

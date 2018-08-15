@@ -66,9 +66,9 @@ Widget appBar() {
 
   //for testing purposes..
 void showData() async {
-    Map data = await getCurrentWeather("Thimphu,Bhutan");
+    Map data = await getForecast("Thimphu,Bhutan");
     if (data.isNotEmpty) {
-      print(data['weather']);
+      print(data['list'][0]);
     } else {
       print("No data");
     }

@@ -17,51 +17,46 @@ Widget updateTemp(String city) {
         var sunSetTime = format.format(DateTime.fromMillisecondsSinceEpoch(
             data['sys']['sunset'] * 1000 + 21600000));
         return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  child: iconGenerator(
-                      data['weather'][0]['icon'], 100.0, Colors.white),
-                ),
-                new Text(
-                  "${data['main']['temp']}°",
-                  style: temperatureStyle(),
-                ),
-              ],
-            ),
-            Container(
-              height: 100.0,
-              width: 300.0,
-              margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 100.0),
-              decoration: new BoxDecoration(
-                color: Colors.black26
-              ),
-              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
+                  Container(
+                    child: iconGenerator(
+                        data['weather'][0]['icon'], 100.0, Colors.white),
+                  ),
+                  new Text(
+                    "${data['main']['temp']}°",
+                    style: temperatureStyle(),
+                  ),
+                ],
+              ),
+
+              
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  new Text(
+                    "${data['weather'][0]['description']}",
+                    style: descriptionStyle(),
+                  ),
                   new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      new Text(
-                        "${data['weather'][0]['description']}",
-                        style: descriptionStyle(),
-                      ),
                       new Text(
                         "Humidity: ${data['main']['humidity']}%",
                         style: otherTextStyle(),
                       ),
-                    ],
-                  ),
-                  new Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
+                      new Padding(
+                        padding: EdgeInsets.only(bottom: 7.0),
+                      ),
                       new Text(
                         "Sunrise: $sunRiseTime",
                         style: otherTextStyle(),
+                      ),
+                      new Padding(
+                        padding: EdgeInsets.only(bottom: 7.0),
                       ),
                       new Text(
                         "Sunset: $sunSetTime",
@@ -70,10 +65,8 @@ Widget updateTemp(String city) {
                     ],
                   ),
                 ],
-              ),
-            ),
-          ],
-        );
+              )
+            ]);
       } else {
         return new Center(
           child: Text(

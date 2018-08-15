@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './ui/home/home.dart';
+import './ui/forecast/forecast.dart';
 
 void main() => runApp(BtnWeather());
 
@@ -8,7 +9,7 @@ class BtnWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "btn weather",
-      home: Home(),
+      home: Forecast(),
       debugShowCheckedModeBanner: false,
     );
   }

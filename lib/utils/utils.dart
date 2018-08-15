@@ -15,8 +15,7 @@ Future<Map> getCurrentWeather(String city) async {
 }
 
 Future<Map> getForecast(String city) async {
-  String url =
-      "http://api.openweathermap.org/data/2.5/forecast?q=$city&appid=959ced4532cb46160e081cf1d9bc50a0&units=metric";
+  String url = "http://api.openweathermap.org/data/2.5/forecast?q=$city&appid=959ced4532cb46160e081cf1d9bc50a0&units=metric";
 
   http.Response response = await http.get(url);
   return json.decode(response.body);
@@ -81,7 +80,6 @@ Icon iconGenerator(String iconName, double size, Color color) {
         icon = new Icon(WeatherIcons.day_sunny);
         break;
     }
-    return icon;
 
     }else {
     switch (iconName) {
@@ -89,25 +87,25 @@ Icon iconGenerator(String iconName, double size, Color color) {
         icon = new Icon(WeatherIcons.night_clear, size: size, color: color);
         break;
       case "02n":
-        icon = new Icon(WeatherIcons.night_cloudy, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_cloudy, size: size, color: color);
         break;
       case "03n":
-        icon = new Icon(WeatherIcons.night_cloudy, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_cloudy, size: size, color: color);
         break;
       case "04n":
-        icon = new Icon(WeatherIcons.night_cloudy_high, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_cloudy_high, size: size, color: color);
         break;
       case "09n":
-        icon = new Icon(WeatherIcons.night_showers, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_showers, size: size, color: color);
         break;
       case "10n":
-        icon = new Icon(WeatherIcons.night_rain, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_rain, size: size, color: color);
         break;
       case "11n":
-        icon = new Icon(WeatherIcons.night_thunderstorm, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_thunderstorm, size: size, color: color);
         break;
       case "13n":
-        icon = new Icon(WeatherIcons.night_snow, size: size, color: color);
+        icon = new Icon(WeatherIcons.night_alt_snow, size: size, color: color);
         break;
       case "50n":
         icon = new Icon(WeatherIcons.night_fog, size: size, color: color);
@@ -116,6 +114,7 @@ Icon iconGenerator(String iconName, double size, Color color) {
         icon = new Icon(WeatherIcons.night_clear);
         break;
     }
-    return icon;
+
   }
+   return icon;
 }
